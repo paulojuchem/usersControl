@@ -74,8 +74,15 @@ class DataHandler {
 
 	public int add(User u){
 
-		//handle this
-		return 0;
+		if (this.writeToFile(Integer.toString(this.getLastIndex())+","+u.getNome()+","+u.getEmail()+";")) {
+
+			return this.getLastIndex();
+
+		} else {
+
+				return 0;
+
+		}
 
 	}
 
@@ -181,7 +188,7 @@ class DataHandler {
 
 	}
 
-	public void writeToFile(String line){
+	public boolean writeToFile(String line){
 
 		FileWritter wr = new FileWritter(this.fileName , true);
 		System.out.println("Dado Salvo com sucesso.");

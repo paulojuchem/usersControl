@@ -80,7 +80,12 @@ class Application {
 
 	public void remover(){
 
-			//trampo do felipe
+			System.out.println("Informe o codigo que deseja remover");
+			dh.rm(this.getUserInput());
+			System.out.println("Pressione uma tecla para continuar...");
+			helper = this.getUserInput();
+			this.showMenu();
+			//trampo do Gustavo
 	}
 
 	public void exportar(){

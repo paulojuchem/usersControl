@@ -17,20 +17,31 @@ class DataHandler {
 
 	}
 
+	private String blankFill(String lbl , int sz){
+
+		while(lbl.length() < sz){
+
+			lbl+=" ";
+
+		}
+		return lbl;
+
+	}
+
 	public void list(){
 
-		this.fileName = "users.txt";
 		this.fileData = null;
 		this.fetchData();
 
 		if(this.fileData!=null){
 
 			String[] rs = this.fileData.split(";");
-			System.out.println("|   ID  |          NOME         |        EMAIL");
+			System.out.println("| ID |           NOME           |               EMAIL                |");
+			System.out.println("+----+--------------------------+------------------------------------+");
 			for(int i = 0; i < rs.length; i++){
 
-				//dividir as linhas
-				System.out.println(rs[i]);
+				String[] s = rs[i].split(",");
+				System.out.println("| "+this.blankFill(s[0] , 3)+"| "+this.blankFill(s[1],25)+"| "+this.blankFill(s[2] , 35)+"|");
 
 			}
 
@@ -43,10 +54,36 @@ class DataHandler {
 
 	}
 
-	public void fetchData(){
+	public void importar(String fileName){
+
+		//handle this
+
+	}
+
+	public void exportar(String fileName){
+
+		//handle this
+
+	}
+
+	public void rm(int id){
+
+		//handle this
+
+	}
+
+	public int add(int id , String nome , String email){
+
+		//handle this
+		return 0;
+
+	}
+
+	public void fetchData(String fileName){
 
 		this.fileData = "";
-		File file = new File(this.fileName);
+		
+		File file = new File(fileName!=null ? fileName : this.fileName);
         StringBuilder contents = new StringBuilder();
         BufferedReader reader = null;
         String text;
@@ -88,6 +125,12 @@ class DataHandler {
             }
 
         }
+
+	}
+
+	public void fetchData(){
+
+		this.fetchData(null);
 
 	}
 

@@ -2,8 +2,8 @@ class Application {
 	
 	public static void main(String[] asas){
 
-		DataFetcher dt = new DataFetcher("users.txt");
-		dt.fetchData();
+		DataHandler dh = new DataHandler("users.txt");
+		dh.list();
 
 	}
 

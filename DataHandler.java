@@ -181,6 +181,13 @@ class DataHandler {
 
 	}
 
+	public void writeToFile(String line){
+
+		FileWritter wr = new FileWritter(this.fileName , true);
+		System.out.println("Dado Salvo com sucesso.");
+
+	}
+
 	public void fetchData(){
 
 		this.fetchData(null);

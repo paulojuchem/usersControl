@@ -1,4 +1,9 @@
+import java.io.*;
+
 class Application {
+
+	private DataHandler dh = new DataHandler("users.txt");
+	String helper;
 	
 	public static void main(String[] asas){
 
@@ -8,8 +13,7 @@ class Application {
 
 	public Application (){
 
-		DataHandler dh = new DataHandler("users.txt");
-		dh.list();
+		this.showMenu();
 
 	}	
 
@@ -17,11 +21,39 @@ class Application {
 
 			System.out.println("Bem Vindos a UsersControl");
 			System.out.println("Por favor selecione uma opcao");
-			System.out.println("1-Adicionar");
-			System.out.println("2-Listar");
-			System.out.println("3-Remover");
-			System.out.println("4-Exportar");
-			System.out.println("5-Importar");
+			System.out.println("1 - Adicionar");
+			System.out.println("2 - Listar");
+			System.out.println("3 - Remover");
+			System.out.println("4 - Exportar");
+			System.out.println("5 - Importar");
+
+			int option = Integer.parseInt(this.getUserInput());
+
+			if(option==1){
+
+				this.adicionar();
+
+			} else if(option==2) {
+
+				this.listar();
+
+			} else if(option==3){
+
+				this.remover();
+
+			} else if(option==4){
+
+				this.exportar();
+
+			} else if(option==5){
+
+				this.importar();
+
+			}
+
+
+			//trampo do gustavo
+
 	}
 
 	public void adicionar(){
@@ -31,7 +63,11 @@ class Application {
 
 	public void listar(){
 
-			//trampo do felipe
+			this.dh.list();
+			System.out.println("Pressione uma tecla para continuar...");
+			helper = this.getUserInput();
+			this.showMenu();
+			//trampo do paulo
 	}
 
 	public void remover(){
@@ -49,10 +85,40 @@ class Application {
 			//trampo do felipe
 	}
 
-	//add @ User
-	//rm @ int -- id user
-	//list lista usuarios
-	//export
-	//import
+	private String getUserInput(){
+
+		String inputLine = null;
+
+		try {
+
+			BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+			inputLine = bf.readLine();
+			
+			if(inputLine.length() != 0){
+
+				try{
+
+					return inputLine;
+
+				} catch (Exception e){
+
+					System.out.println("Falha ao converter dado para inteiro");
+
+				}
+				
+
+			}
+
+		} catch(IOException e) {
+
+			System.out.println("Algum pane ao ler o que voce escreveu");
+
+		}
+
+		return null;
+
+		//trampo do livro de java
+
+	}
 
 }

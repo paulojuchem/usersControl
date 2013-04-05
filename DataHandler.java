@@ -4,10 +4,12 @@ class DataHandler {
 	
 	private String fileName;
 	private String fileData;
+	private String tmpName;
 
-	public DataHandler(String fileName){
+	public DataHandler(String fileName , String tmpName){
 
-		this.fileName=fileName;
+		this.fileName	= fileName;
+		this.tmpName 	= tmpName;
 
 	}
 
@@ -68,19 +70,49 @@ class DataHandler {
 
 	public void rm(int id){
 
-		//handle this
+		this.fileData = null;
+		this.fetchData();
+		boolean status = false;
+		if(this.fileData!=null){
 
-	}
+			String[] rs = this.fileData.split(";");
+			for(int i = 0; i < rs.length; i++){
 
-	public int add(User u){
+				String[] s = rs[i].split(",");
+				System.out.println("| "+this.blankFill(s[0] , 3)+"| "+this.blankFill(s[1],25)+"| "+this.blankFill(s[2] , 35)+"|");
+				
+				if(Integer.parseInt(s[2])==id){
 
-		if (this.writeToFile(Integer.toString(this.getLastIndex())+","+u.getNome()+","+u.getEmail()+";")) {
+					status = true;
+					System.out.println("Usuario "+s[0]+" encontrado e removido com sucesso!");
 
-			return this.getLastIndex();
+				}
+
+				if(status){
+
+					System.out.println(s[0]+" nao foi encontrado");
+
+				}
+
+			}
 
 		} else {
 
-				return 0;
+			System.out.println("No data was found.");
+
+		}
+
+	}
+
+	public void add(User u){
+
+		if (this.writeToFile(Integer.toString(this.getLastIndex()+1)+","+u.getNome()+","+u.getEmail()+";")) {
+
+			System.out.println("Usuario "+Integer.toString(this.getLastIndex())+" adicionado com sucesso!");
+
+		} else {
+
+			System.out.println("Nao foi possivel adicionar "+u.getNome());
 
 		}
 
@@ -190,8 +222,21 @@ class DataHandler {
 
 	public boolean writeToFile(String line){
 
-		FileWritter wr = new FileWritter(this.fileName , true);
-		System.out.println("Dado Salvo com sucesso.");
+		try {
+			
+			FileWriter outFile = new FileWriter(this.fileName , true);
+  			PrintWriter out = new PrintWriter(outFile);
+  			out.println(line);
+  			out.close();
+			return true;
+		
+		} catch(IOException x){
+
+			System.out.println(x.getMessage());
+			return false;
+
+		}
+
 
 	}
 

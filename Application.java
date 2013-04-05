@@ -2,7 +2,7 @@ import java.io.*;
 
 class Application {
 
-	private DataHandler dh = new DataHandler("users.txt");
+	private DataHandler dh = new DataHandler("users.txt" , "tmp.txt");
 	String helper;
 	
 	public static void main(String[] asas){
@@ -64,7 +64,9 @@ class Application {
 			String email=this.getUserInput();
 			User u=new User(0, nome,email);
 			this.dh.add(u);
-			//trampo do felipe
+			System.out.println("Pressione uma tecla para continuar...");
+			helper = this.getUserInput();
+			this.showMenu();
 	}
 
 	public void listar(){

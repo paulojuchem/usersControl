@@ -128,6 +128,59 @@ class DataHandler {
 
 	}
 
+	public int getLastIndex(){
+
+		this.fileData = "";
+		
+		File file = new File(fileName!=null ? fileName : this.fileName);
+        StringBuilder contents = new StringBuilder();
+        BufferedReader reader = null;
+        int lastIndex=0;
+        String text = "";
+		//pegar os dados do arquivo
+
+         try {
+
+            reader = new BufferedReader(new FileReader(file));
+
+            // repeat until all lines is read
+            while ((text = reader.readLine()) != null) {
+
+            	String[] s = text.split(",");
+            	lastIndex = Integer.parseInt(s[0]) > lastIndex ? Integer.parseInt(s[0]) : lastIndex;
+
+            }
+
+            return lastIndex;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            this.fileData = null;
+
+        } finally {
+
+            try {
+
+                if (reader != null) {
+
+                    reader.close();
+
+                }
+
+            } catch (IOException e) {
+
+            	this.fileData = null;
+                e.printStackTrace();
+
+            }
+
+        }
+
+        return 0;
+
+	}
+
 	public void fetchData(){
 
 		this.fetchData(null);

@@ -58,6 +58,12 @@ class Application {
 
 	public void adicionar(){
 
+			System.out.println("Digite o nome do usuario: ");
+			String nome=this.getUserInput();
+			System.out.println("Digite o email: ");
+			String email=this.email.getUserInput();
+			User u=new User(null, nome,email);
+			this.dh.add(u);
 			//trampo do felipe
 	}
 

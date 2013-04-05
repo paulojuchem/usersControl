@@ -72,7 +72,7 @@ class DataHandler {
 
 	}
 
-	public int add(int id , String nome , String email){
+	public int add(User u){
 
 		//handle this
 		return 0;

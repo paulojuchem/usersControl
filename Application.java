@@ -2,7 +2,7 @@ import java.io.*;
 
 class Application {
 
-	private DataHandler dh = new DataHandler("users.txt" , "tmp.txt");
+	private DataHandler dh = new DataHandler("users.txt");
 	String helper;
 	
 	public static void main(String[] asas){
@@ -81,7 +81,7 @@ class Application {
 	public void remover(){
 
 			System.out.println("Informe o codigo que deseja remover");
-			dh.rm(this.getUserInput());
+			dh.rm(Integer.parseInt(this.getUserInput()));
 			System.out.println("Pressione uma tecla para continuar...");
 			helper = this.getUserInput();
 			this.showMenu();

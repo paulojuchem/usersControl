@@ -4,13 +4,10 @@ class DataHandler {
 	
 	private String fileName;
 	private String fileData;
-	private String tmpName;
 
-	public DataHandler(String fileName , String tmpName){
+	public DataHandler(String fileName){
 
 		this.fileName	= fileName;
-		this.tmpName 	= tmpName;
-
 	}
 
 	public void setFile(String fileName){
@@ -68,37 +65,56 @@ class DataHandler {
 
 	}
 
-	public void rm(int id){
+	private boolean checkData(int id){
 
 		this.fileData = null;
 		this.fetchData();
-		boolean status = false;
+
 		if(this.fileData!=null){
 
 			String[] rs = this.fileData.split(";");
 			for(int i = 0; i < rs.length; i++){
 
 				String[] s = rs[i].split(",");
-				System.out.println("| "+this.blankFill(s[0] , 3)+"| "+this.blankFill(s[1],25)+"| "+this.blankFill(s[2] , 35)+"|");
-				
-				if(Integer.parseInt(s[2])==id){
 
-					status = true;
-					System.out.println("Usuario "+s[0]+" encontrado e removido com sucesso!");
+				if(Integer.parseInt(s[0] == null ? "0" : s[0])==id){
 
-				}
+					this.fileData = this.fileData.replace(rs[i]+";","");
+					return true;
 
-				if(status){
-
-					System.out.println(s[0]+" nao foi encontrado");
-
-				}
+				}	
 
 			}
+
+			//System.out.println(this.fileData)
 
 		} else {
 
 			System.out.println("No data was found.");
+
+		}
+
+		return false;
+
+	}
+
+	public void rm(int id){
+
+		if(this.checkData(id)){
+
+			String[] rs = this.fileData.split(";");
+
+			for(int i = 0; i < rs.length; i++){
+
+				this.writeToFile(rs[i]+";" , i == 0 ? false : true);	
+
+			}
+
+			System.out.println("Usuario "+Integer.toString(id)+" encontrado e removido com sucesso!");
+
+		} else {
+
+			System.out.println("Usuario "+Integer.toString(id)+" nao encontrado.");
 
 		}
 
@@ -222,9 +238,15 @@ class DataHandler {
 
 	public boolean writeToFile(String line){
 
+		return this.writeToFile(line , true);
+
+	}
+
+	public boolean writeToFile(String line , boolean start){
+
 		try {
 			
-			FileWriter outFile = new FileWriter(this.fileName , true);
+			FileWriter outFile = new FileWriter(this.fileName , start);
   			PrintWriter out = new PrintWriter(outFile);
   			out.println(line);
   			out.close();

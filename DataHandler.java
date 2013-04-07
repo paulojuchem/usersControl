@@ -37,6 +37,7 @@ class DataHandler {
 			String[] rs = this.fileData.split(";");
 			System.out.println("| ID |           NOME           |               EMAIL                |");
 			System.out.println("+----+--------------------------+------------------------------------+");
+
 			for(int i = 0; i < rs.length; i++){
 
 				String[] s = rs[i].split(",");
@@ -55,13 +56,91 @@ class DataHandler {
 
 	public void importar(String fileName){
 
-		//handle this
+		this.fetchData();
+
+		String fileData = this.fileData();
+
+		this.fetchData(fileName+".txt");
+
+		String[] d0 = fileData.split(";");
+		String[] d1 = this.fileData.split(";");
+
+		for(int i = 0; i < d0.length; i++){
+
+			String[] 	d0_split 	= d0[i].split(",");
+
+			for(int j = 0; j < d1.length; j++){
+
+				String[]	d1_split	= d1[j].split(",");
+
+				if(Integer.parseInt(d0_split[0])==Integer.parseInt(d1_split[0])){
+
+					System.out.println("id "+d0_split[0]+" ja cadastrado, o que deseja fazer?");
+
+					//leave the loop;
+					j = d1.length;
+
+				} else if(d0_split[1].equals[d1_split[1]]){
+
+					System.out.println("nome "+d0_split[1]+" ja cadastrado, o que deseja fazer?");
+
+				} else if(d0_split[2].equals[d1_split[2]]){
+
+					System.out.println("email "+d0_split[1]+" ja cadastrado, o que deseja fazer?");
+
+				} else {
+
+					//add defauls
+
+				}
+
+			}
+
+		}
+
+
+		this.fetchData();
+
 
 	}
 
-	public void exportar(String fileName){
+	public void export(String fileName){
 
-		//handle this
+		this.fetchData();
+		if(this.fileData!=null){
+
+			try{
+
+				String[] rs = this.fileData.split(";");
+				FileWriter outFile = new FileWriter(fileName+".txt" , true);
+	  			PrintWriter out = new PrintWriter(outFile);
+
+	  			int i;
+
+	  			for(i = 0; i < rs.length; i++){
+
+					out.println(rs[i]+";");
+							
+				}
+
+				out.close();
+
+				System.out.println(Integer.toString(i)+" registers were written into "+fileName+".txt");
+			
+			} catch(IOException x){
+
+				System.out.println(x.getMessage());
+				System.out.println("problemas ao exportar arquivo");
+
+			}
+			
+			
+
+		} else {
+
+			System.out.println("no data was found to export");
+
+		}
 
 	}
 
@@ -122,7 +201,7 @@ class DataHandler {
 
 	public void add(User u){
 
-		if (this.writeToFile(Integer.toString(this.getLastIndex()+1)+","+u.getNome()+","+u.getEmail()+";")) {
+		if (this.writeToFile(u.getId()==0 ? Integer.toString(this.getLastIndex()+1 : u.getId())+","+u.getNome()+","+u.getEmail()+";")) {
 
 			System.out.println("Usuario "+Integer.toString(this.getLastIndex())+" adicionado com sucesso!");
 
